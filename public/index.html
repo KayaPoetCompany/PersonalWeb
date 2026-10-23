@@ -27,6 +27,8 @@
   --cream: #F3E3B0;
   --font: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
   --hand: 'Caveat', cursive;
+  /* Odsazení u každého přechodu fialová ↔ žlutá, stejné nad i pod hranou. */
+  --gap: 96px;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -92,10 +94,9 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 
 .hero {
   padding-top: 48px;
-  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 0 48px; align-items: end;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 0 48px; align-items: end;
 }
-/* Text drží nahoře a dole má menší odsazení, takže výšku hero určuje fotka a ta začíná ve výšce nadpisu. */
-.hero-text { align-self: start; padding-bottom: 56px; display: flex; flex-direction: column; gap: 36px; }
+.hero-text { padding-bottom: var(--gap); display: flex; flex-direction: column; gap: 36px; }
 .hero h1 { font-size: clamp(52px, 6.6vw, 104px); line-height: 0.9; letter-spacing: -0.02em; }
 .hero-lead { max-width: 32em; font-size: 21px; }
 /* Fotka (960×1014) je dole useknutá bez bílého obrysu, aby vystupovala přímo ze žlutého bloku. */
@@ -128,7 +129,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 }
 
 /* Zárubeň */
-.growth { padding-top: 96px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 48px; }
+.growth { padding-top: var(--gap); padding-bottom: var(--gap); display: flex; flex-direction: column; gap: 48px; }
 .intro { display: flex; flex-direction: column; gap: 14px; max-width: 720px; }
 .intro p { color: var(--purple-mid); }
 
@@ -156,7 +157,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .mark-link { align-self: flex-start; font-weight: 700; padding: 10px 0; text-underline-offset: 4px; }
 
 /* Rodina */
-.family { padding-top: 104px; padding-bottom: 104px; display: flex; flex-wrap: wrap; gap: 64px; align-items: center; }
+.family { padding-top: var(--gap); padding-bottom: var(--gap); display: flex; flex-wrap: wrap; gap: 64px; align-items: center; }
 .family-text { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px; max-width: 640px; }
 .family-photo { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 0; }
 .photo-slot {
@@ -169,7 +170,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .family-photo figcaption { font-family: var(--hand); font-weight: 700; font-size: 24px; color: var(--yellow); padding-left: 12px; }
 
 /* Kontakt */
-.contact { padding-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.contact { padding-top: var(--gap); display: flex; flex-direction: column; gap: 28px; }
 
 /* Místo vpravo od formuláře je volné pro fotku. Fotka by dosedala spodní hranou na čáru patičky,
    proto spodní odsazení sekce nese formulář, ne sekce. */
@@ -232,9 +233,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   .logo img { height: 118px; }
   .hero { padding-top: 24px; }
   .hero-lead, .contact > p { font-size: 19px; }
-  .growth { padding-top: 64px; padding-bottom: 64px; }
-  .family { padding-top: 72px; padding-bottom: 72px; }
-  .contact { padding-top: 72px; }
+  :root { --gap: 64px; }
   .ruler { width: 28px; background-size: 12px 100%; }
   .mark-head, .mark-body { padding-left: 16px; }
   .mark h3 { font-size: 32px; }
