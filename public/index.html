@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Karel Pospíšilík – Rodina i já</title>
-<meta name="description" content="Táta, autor a člověk, co nevydrží sedět. Konzultace AI, tvorba webů, vlastní projekty a texty.">
+<meta name="description" content="AI konzultant, tvůrce, táta a člověk, co nevydrží sedět. Konzultace AI, tvorba webů, vlastní projekty a texty.">
 <meta property="og:title" content="Karel Pospíšilík – Rodina i já">
 <meta property="og:description" content="Konzultace AI, tvorba webů, vlastní projekty a texty.">
 <meta property="og:type" content="website">
@@ -23,6 +23,7 @@
   --purple: #55208F;
   --purple-dark: #3A1263;
   --purple-mid: #7A4BAE;
+  --yellow-dark: #F2C94C;
   --cream: #F3E3B0;
   --font: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
   --hand: 'Caveat', cursive;
@@ -63,17 +64,18 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px;
   border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 17px;
   border: 2px solid transparent;
-  transition: transform .15s ease, background-color .15s ease, color .15s ease;
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
 }
-.btn:hover { transform: translateY(-2px); }
+/* Hover u všech tlačítek: ztmavení + posun nahoru */
+.btn:hover { transform: translateY(-3px); }
 .btn-yellow { background: var(--yellow); color: var(--purple); }
-.btn-yellow:hover { color: var(--purple-dark); }
+.btn-yellow:hover { background: var(--yellow-dark); color: var(--purple-dark); }
 .btn-outline-yellow { border-color: var(--yellow); color: var(--yellow); }
-.btn-outline-yellow:hover { background: var(--yellow); color: var(--purple); }
+.btn-outline-yellow:hover { background: var(--purple-dark); border-color: var(--yellow-dark); color: var(--yellow-dark); }
 .btn-purple { background: var(--purple); color: var(--yellow); }
 .btn-purple:hover { background: var(--purple-dark); color: var(--yellow); }
 .btn-outline-purple { border-color: var(--purple); color: var(--purple); }
-.btn-outline-purple:hover { background: var(--purple); color: var(--yellow); }
+.btn-outline-purple:hover { background: rgba(58, 18, 99, .1); border-color: var(--purple-dark); color: var(--purple-dark); }
 @media (prefers-reduced-motion: reduce) { .btn, .btn:hover { transition: none; transform: none; } }
 
 /* Hero */
@@ -113,7 +115,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   box-shadow: 0 8px 24px rgba(20, 6, 40, .35);
 }
 .hero-figure .btn-outline-yellow { background: var(--purple); }
-.hero-figure .btn-outline-yellow:hover { background: var(--yellow); }
+.hero-figure .btn-outline-yellow:hover { background: var(--purple-dark); }
 @media (max-width: 1080px) {
   .hero { grid-template-columns: 1fr; }
   .hero-text { padding-bottom: 24px; }
@@ -252,8 +254,8 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   </header>
   <div class="wrap hero">
     <div class="hero-text">
-      <h1 class="display">Táta, autor a člověk, co nevydrží sedět.</h1>
-      <p class="hero-lead">Přes den marketing a AI, večer texty a aplikace, o víkendu kopce a výlety s dětmi. Tady je všechno pohromadě – to, co pro vás umím udělat, a to, co pořád roste.</p>
+      <h1 class="display">AI konzultant, tvůrce, táta a člověk, co nevydrží sedět.</h1>
+      <p class="hero-lead">Přes den marketing a AI agenti, večer vibe coding a psaní, o víkendu kopce a výlety s dětmi. Tady je všechno pohromadě – to, co pro vás umím udělat, a to, co pořád roste.</p>
     </div>
     <figure class="hero-figure">
       <img src="img/karel-hero.png" alt="Karel Pospíšilík" width="960" height="1014">
@@ -270,7 +272,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 <section id="zarubne" class="wrap growth">
   <div class="intro">
     <h2 class="display">Jak co roste</h2>
-    <p>Doma měříme děti na zárubni dveří. Tak jsem tam zapsal i všechno ostatní – nahoře to, co už samo chodí do světa, dole to, co na svou velkou chvíli teprve čeká.</p>
+    <p>Doma měříme děti na zárubni dveří. Tak jsem tam zapsal i všechno ostatní – nahoře to, co už samo chodí po světě, dole to, co na svou chvíli teprve čeká.</p>
   </div>
 
   <div class="frame">
@@ -283,18 +285,18 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
           <h3>Konzultace AI</h3>
         </div>
         <div class="mark-body">
-          <p>Najdeme místa, kde vám AI opravdu ušetří čas. Od prvních promptů po agenty a automatizace – Claude, Make a Copilot Studio. Specializuju se na osobní projekty a produktivitu jak doma, tak v práci.</p>
+          <p>Najdeme místa, kde vám AI dokáže ušetřit čas. Od jednoduchých promptů a asistentů po agenty a automatizace pomocí Claude, Make nebo Copilot Studio. Specializuju se na osobní projekty a produktivitu jak doma, tak v práci.</p>
           <a href="#kontakt" class="mark-link">Probrat konzultaci</a>
         </div>
       </article>
 
       <article class="mark solid">
         <div class="mark-head">
-          <span class="note">služba – od textu po kód</span>
+          <span class="note">služba – od nápadu po kód</span>
           <h3>Tvorba webu</h3>
         </div>
         <div class="mark-body">
-          <p>Weby a malé aplikace s jasným účelem. Napíšu texty, navrhnu strukturu a postavím to – jeden člověk od zadání po spuštění.</p>
+          <p>Tvořím weby a jednoduché aplikace s jasným účelem. Od nápadu přes kód až po copywriting. Dokážu zabezpečit bezpečnost i SEO. Spolupracuji se seniorním programátorem, který každý projekt zkontroluje, a spolu ho připravíme na produkci.</p>
           <a href="#kontakt" class="mark-link">Poptat web</a>
         </div>
       </article>
@@ -305,7 +307,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
           <h3>GoMyStory</h3>
         </div>
         <div class="mark-body">
-          <p>Plány výletů, které vypráví příběh. Zadáte, kam jedete a co vás baví, a AI připraví trasu jako dobrodružství, které děti chtějí dojít až do konce.</p>
+          <p>Syn chce hledat dinosaury. Dcera chce fotit. Vy chcete ujít 5 km denně. A všichni máte rádi detektivky. Vytvoříme vám příběh, ve kterém každý dostane svou roli, a itinerář, ve kterém každý bude mít svůj úkol.</p>
           <a href="https://www.gomystory.com/" class="mark-link" target="_blank" rel="noopener">Vytvořit příběh</a>
         </div>
       </article>
@@ -313,17 +315,6 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
       <article class="mark">
         <div class="mark-head">
           <span class="note">projekt – doma už chodí</span>
-          <h3>DetiNaKlik</h3>
-        </div>
-        <div class="mark-body">
-          <p>Škola, kroužky a rozvrhy každého dítěte na jednom místě – bez přepínání mezi EduPage, Bakaláři a dalšími aplikacemi. Vzniklo z vlastní potřeby, protože s pěti dětmi už se to nedalo uhlídat. Doma to funguje a teď to připravuju i pro další rodiny.</p>
-          <a href="https://www.detinaklik.cz/" class="mark-link" target="_blank" rel="noopener">Ušetřit čas</a>
-        </div>
-      </article>
-
-      <article class="mark">
-        <div class="mark-head">
-          <span class="note">projekt – první krůčky</span>
           <h3>MyLocalEverest</h3>
         </div>
         <div class="mark-body">
@@ -334,11 +325,22 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 
       <article class="mark">
         <div class="mark-head">
-          <span class="note">srdcovka – čeká na první premiéru</span>
+          <span class="note">projekt – první krůčky</span>
+          <h3>DetiNaKlik</h3>
+        </div>
+        <div class="mark-body">
+          <p>Děti chodí do různých škol s různými systémy a k tomu má každé svoje kroužky. Žádnou hotovou aplikaci jsem na to nenašel, tak jsem si ji postavil sám. Od té doby ji používáme každé ráno. Na setkání vám nastavím to, co funguje u nás. Jen místo mých dětí a škol tam budou ty vaše.</p>
+          <a href="https://www.detinaklik.cz/" class="mark-link" target="_blank" rel="noopener">Ušetřit čas</a>
+        </div>
+      </article>
+
+      <article class="mark">
+        <div class="mark-head">
+          <span class="note">srdcovka – premiéra se blíží</span>
           <h3>Libreta a texty</h3>
         </div>
         <div class="mark-body">
-          <p>Texty písní a libreta muzikálů, ve spolupráci se skladatelem. Pro velké jeviště i pro dětská představení.</p>
+          <p>Píšu texty písní a libreta muzikálů, ve spolupráci se skladatelem. Pro velká jeviště i dětská představení. Od lehčích až po, nebál bych se říct, hluboká témata.</p>
           <a href="#kontakt" class="mark-link">Objednat text</a>
         </div>
       </article>
@@ -352,9 +354,9 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   <div class="wrap family">
     <div class="family-text">
       <h2 class="display">Rodina i já</h2>
-      <p>S pěti dětmi se člověk naučí dvě věci: vymyslet hru na celé odpoledne a dotáhnout plán, i když se všechno mění za pochodu. Obojí se hodí i v práci.</p>
-      <p>Spousta mých nápadů vzniká na výletech – když hledáme, kam vyrazit, nebo když na kopci zjistíme, že nejlepší výzva byla celou dobu za humny.</p>
-      <p>A když děti spí, píšu. Texty, libreta, pohádky. Nebo kód.</p>
+      <p>S pěti dětmi se člověk naučí dvě věci: vymyslet hru na celé odpoledne a dotáhnout plán, i když se všechno mění za pochodu. Psychickou odolnost si buduji i při výzvách na 100 km.</p>
+      <p>A když děti zrovna spí a netoulám se někde po horách, tvořím. Texty, agenty nebo kód.</p>
+      <p>A proč právě slogan „Rodina i já“? Protože základem všeho je nejen silná rodina, ale i moje vlastní spokojenost a smysl života.</p>
     </div>
     <figure class="family-photo">
       <div class="photo-slot"><img src="img/rodina.jpg" alt="Karel s manželkou a pěti dětmi na hradbách nad městem" width="1200" height="800" loading="lazy"></div>
@@ -365,11 +367,10 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 
 <!-- Kontakt -->
 <section id="kontakt" class="wrap contact">
-  <h2 class="display">Máte nápad, který potřebuje vyrůst?</h2>
-  <p>Napište, s čím potřebujete pomoct. Rád se potkám na krátkém hovoru.</p>
+  <h2 class="display">Potřebujete pomoc? Máte nápad, který potřebuje vyrůst?</h2>
+  <p>Napište mi. Rád se s vámi potkám.</p>
   <div class="btns">
-    <a href="mailto:kayapoetcompany@gmail.com" class="btn btn-purple">Napsat e-mail</a>
-    <a href="https://cz.linkedin.com/in/karel-pospisilik" class="btn btn-outline-purple" target="_blank" rel="noopener">Napsat na LinkedIn</a>
+    <a href="https://cz.linkedin.com/in/karel-pospisilik" class="btn btn-outline-purple" target="_blank" rel="noopener">Propojit se na LinkedIn</a>
   </div>
 
   <!-- Zprávy jdou na webhook v Make (účet kayapoetcompany) → Google Sheets + upozornění do Gmailu. -->
