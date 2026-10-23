@@ -94,7 +94,8 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   padding-top: 48px;
   display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 0 48px; align-items: end;
 }
-.hero-text { padding-bottom: 112px; display: flex; flex-direction: column; gap: 36px; }
+/* Text drží nahoře a dole má menší odsazení, takže výšku hero určuje fotka a ta začíná ve výšce nadpisu. */
+.hero-text { align-self: start; padding-bottom: 56px; display: flex; flex-direction: column; gap: 36px; }
 .hero h1 { font-size: clamp(52px, 6.6vw, 104px); line-height: 0.9; letter-spacing: -0.02em; }
 .hero-lead { max-width: 32em; font-size: 21px; }
 /* Fotka (960×1014) je dole useknutá bez bílého obrysu, aby vystupovala přímo ze žlutého bloku. */
@@ -329,7 +330,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
           <h3>DetiNaKlik</h3>
         </div>
         <div class="mark-body">
-          <p>Děti chodí do různých škol s různými systémy a k tomu má každé svoje kroužky. Žádnou hotovou aplikaci jsem na to nenašel, tak jsem si ji postavil sám. Od té doby ji používáme každé ráno. Na setkání vám nastavím to, co funguje u nás. Jen místo mých dětí a škol tam budou ty vaše.</p>
+          <p>Děti chodí do různých škol s různými systémy a k tomu má každé svoje kroužky. Žádnou hotovou aplikaci jsem na to nenašel, tak jsem si ji postavil sám. Od té doby ji používáme každé ráno. Na setkání vám nastavím to, co funguje u nás. Jen místo mých dětí tam budou ty vaše.</p>
           <a href="https://www.detinaklik.cz/" class="mark-link" target="_blank" rel="noopener">Ušetřit čas</a>
         </div>
       </article>
