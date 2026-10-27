@@ -203,6 +203,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   padding: 12px 16px; width: 100%; min-height: 52px;
 }
 .field textarea { min-height: 160px; resize: vertical; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder { color: var(--purple-mid); opacity: .55; }
 .field input:focus, .field textarea:focus { outline: 3px solid var(--purple); outline-offset: 2px; background: #FFFAE6; }
 .field [aria-invalid="true"] { border-color: #B3261E; background: #FFEDE6; }
 .field-error { min-height: 0; font-size: 14px; font-weight: 600; color: #B3261E; }
@@ -213,7 +214,9 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   margin: 0; font-family: var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--purple);
 }
 .form-thanks:empty { display: none; }
-.form-actions .btn:disabled { opacity: .6; cursor: wait; transform: none; }
+/* Dokud nejsou vyplněná povinná pole, je tlačítko neaktivní a kurzor ukáže červené přeškrtnuté kolečko. */
+.form-actions .btn:disabled { opacity: .45; transform: none; background: var(--purple); cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23fff' stroke='%23D92D20' stroke-width='3'/%3E%3Cpath d='M5 5l14 14' stroke='%23D92D20' stroke-width='3'/%3E%3C/svg%3E") 12 12, not-allowed; }
+.form-actions .btn.is-sending:disabled { opacity: .6; cursor: wait; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 @media (max-width: 600px) {
   .contact-form { grid-template-columns: 1fr; }
@@ -382,22 +385,22 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
     <p class="form-note">* povinné</p>
     <div class="field">
       <label for="f-jmeno">Jméno <span>*</span></label>
-      <input id="f-jmeno" name="jmeno" type="text" autocomplete="given-name" required aria-describedby="e-jmeno">
+      <input id="f-jmeno" name="jmeno" type="text" placeholder="Tomáš" autocomplete="given-name" required aria-describedby="e-jmeno">
       <span class="field-error" id="e-jmeno"></span>
     </div>
     <div class="field">
       <label for="f-prijmeni">Příjmení <span>*</span></label>
-      <input id="f-prijmeni" name="prijmeni" type="text" autocomplete="family-name" required aria-describedby="e-prijmeni">
+      <input id="f-prijmeni" name="prijmeni" type="text" placeholder="Kapřík" autocomplete="family-name" required aria-describedby="e-prijmeni">
       <span class="field-error" id="e-prijmeni"></span>
     </div>
     <div class="field field-full">
       <label for="f-email">E-mail <span>*</span></label>
-      <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
+      <input id="f-email" name="email" type="email" placeholder="tomas@kaprik.cz" autocomplete="email" required aria-describedby="e-email">
       <span class="field-error" id="e-email"></span>
     </div>
     <div class="field field-full">
       <label for="f-zprava">Zpráva <span>*</span></label>
-      <textarea id="f-zprava" name="zprava" required aria-describedby="e-zprava"></textarea>
+      <textarea id="f-zprava" name="zprava" placeholder="Rád bych probral, jak mi AI může pomoct při mém podnikání." required aria-describedby="e-zprava"></textarea>
       <span class="field-error" id="e-zprava"></span>
     </div>
     <!-- Past na roboty: člověk pole nevidí, robot ho vyplní a scénář v Make zprávu zahodí. -->
@@ -406,7 +409,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
       <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-purple">Odeslat</button>
+      <button type="submit" class="btn btn-purple" disabled>Odeslat</button>
       <p class="form-thanks" id="form-thanks" role="status" aria-live="polite"></p>
     </div>
   </form>
@@ -458,11 +461,28 @@ document.querySelector('.logo').addEventListener('click', function (e) {
   var button = form.querySelector('button[type="submit"]');
   var fields = form.querySelectorAll('.field input, .field textarea');
 
+  var sending = false;
+
+  // Tlačítko Odeslat je aktivní, až když jsou vyplněná všechna povinná pole.
+  function update() {
+    var ok = true;
+    fields.forEach(function (el) {
+      if (!el.value.trim() || (el.type === 'email' && !el.validity.valid)) ok = false;
+    });
+    button.disabled = sending || !ok;
+  }
+
   fields.forEach(function (el) {
     el.addEventListener('input', function () {
+      el.dataset.touched = '1';
       if (el.getAttribute('aria-invalid') === 'true') check(el);
+      update();
     });
+    el.addEventListener('change', update);
+    // Po opuštění vyplňovaného pole hned řekneme, co chybí, ať je jasné, proč tlačítko nejde.
+    el.addEventListener('blur', function () { if (el.dataset.touched) check(el); });
   });
+  update();
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -472,7 +492,9 @@ document.querySelector('.logo').addEventListener('click', function (e) {
 
     // Jednoduchý požadavek (form-urlencoded) – prohlížeč nemusí posílat CORS preflight.
     var data = new URLSearchParams(new FormData(form));
+    sending = true;
     button.disabled = true;
+    button.classList.add('is-sending');
     button.textContent = 'Odesílám…';
     thanks.textContent = '';
 
@@ -480,15 +502,17 @@ document.querySelector('.logo').addEventListener('click', function (e) {
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         form.reset();
-        fields.forEach(function (el) { el.removeAttribute('aria-invalid'); });
+        fields.forEach(function (el) { el.removeAttribute('aria-invalid'); delete el.dataset.touched; });
         thanks.textContent = 'Díky za zprávu. Brzy se ozvu.';
       })
       .catch(function () {
         thanks.textContent = 'Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo napište na kayapoetcompany@gmail.com.';
       })
       .then(function () {
-        button.disabled = false;
+        sending = false;
+        button.classList.remove('is-sending');
         button.textContent = 'Odeslat';
+        update();
       });
   });
 })();
