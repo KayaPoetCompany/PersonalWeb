@@ -247,7 +247,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 
 <section id="top" class="dark">
   <header class="wrap site-header">
-    <a href="#top" class="logo"><img src="img/logo-zlute.png" alt="KayaPoetCompany – Karel Pospíšilík" width="499" height="360"></a>
+    <a href="/" class="logo"><img src="img/logo-zlute.png" alt="KayaPoetCompany – Karel Pospíšilík" width="499" height="360"></a>
     <nav class="site-nav" aria-label="Hlavní navigace">
       <a href="#zarubne">Co dělám</a>
       <a href="#rodina">Rodina i já</a>
@@ -424,6 +424,15 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 </footer>
 
 <script>
+// Logo: plynule nahoru bez načtení stránky a bez #top v adrese. Bez JavaScriptu odkaz prostě načte úvodní stránku.
+document.querySelector('.logo').addEventListener('click', function (e) {
+  if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  history.replaceState(null, '', location.pathname + location.search);
+});
+
 (function () {
   var form = document.getElementById('contact-form');
   var thanks = document.getElementById('form-thanks');
