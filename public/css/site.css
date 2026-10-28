@@ -1,0 +1,226 @@
+:root {
+  --yellow: #FFE07A;
+  --purple: #55208F;
+  --purple-dark: #3A1263;
+  --purple-mid: #7A4BAE;
+  --yellow-dark: #F2C94C;
+  --cream: #F3E3B0;
+  --font: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  --hand: 'Caveat', cursive;
+  /* Odsazení u každého přechodu fialová ↔ žlutá, stejné nad i pod hranou. */
+  --gap: 96px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--yellow);
+  color: var(--purple);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+}
+a { color: var(--purple); }
+a:hover { color: var(--purple-dark); }
+a:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+.dark a:focus-visible { outline-color: var(--yellow); }
+p { margin: 0; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+
+.display {
+  margin: 0;
+  font-variation-settings: 'wdth' 75;
+  font-stretch: 75%;
+  font-weight: 800;
+}
+h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
+
+.dark { background: var(--purple); color: var(--yellow); }
+.dark p { color: var(--cream); }
+
+/* Buttons */
+.btns { display: flex; flex-wrap: wrap; gap: 14px; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px;
+  border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 17px;
+  border: 2px solid transparent;
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+/* Hover u všech tlačítek: ztmavení + posun nahoru */
+.btn:hover { transform: translateY(-3px); }
+.btn-yellow { background: var(--yellow); color: var(--purple); }
+.btn-yellow:hover { background: var(--yellow-dark); color: var(--purple-dark); }
+.btn-outline-yellow { border-color: var(--yellow); color: var(--yellow); }
+.btn-outline-yellow:hover { background: var(--purple-dark); border-color: var(--yellow-dark); color: var(--yellow-dark); }
+.btn-purple { background: var(--purple); color: var(--yellow); }
+.btn-purple:hover { background: var(--purple-dark); color: var(--yellow); }
+.btn-outline-purple { border-color: var(--purple); color: var(--purple); }
+.btn-outline-purple:hover { background: rgba(58, 18, 99, .1); border-color: var(--purple-dark); color: var(--purple-dark); }
+@media (prefers-reduced-motion: reduce) { .btn, .btn:hover { transition: none; transform: none; } }
+
+/* Hero */
+.site-header {
+  padding-top: 28px; padding-bottom: 28px;
+  display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; justify-content: space-between;
+}
+/* Logo je PNG s průhledným pozadím (img/logo-zlute.png); fialová verze je v img/logo-fialove.png. */
+.logo { display: block; flex-shrink: 0; }
+.logo img { display: block; height: 166px; width: auto; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-weight: 600; font-size: 17px; }
+.site-nav a { color: var(--yellow); text-decoration: none; padding: 10px 0; }
+.site-nav a:hover { color: var(--yellow); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+.hero {
+  padding-top: 48px;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 0 48px; align-items: end;
+}
+.hero-text { padding-bottom: var(--gap); display: flex; flex-direction: column; gap: 36px; }
+.hero h1 { font-size: clamp(52px, 6.6vw, 104px); line-height: 0.9; letter-spacing: -0.02em; }
+.hero-lead { max-width: 32em; font-size: 21px; }
+/* Fotka (960×1014) je dole useknutá bez bílého obrysu, aby vystupovala přímo ze žlutého bloku. */
+.hero-figure {
+  position: relative; margin: 0; justify-self: end; width: 100%; max-width: 480px;
+  container-type: inline-size;
+}
+.hero-figure img { display: block; width: 100%; height: auto; }
+/* Střed tlačítek je kousek pod druhým knoflíkem na tričku (ten je na 75,2 % výšky fotky).
+   Výška tlačítek se odvozuje od šířky fotky (cqw). */
+.hero-figure .btns {
+  position: absolute; left: 0; right: 0; top: 76.8%; transform: translateY(-50%);
+  flex-wrap: nowrap; justify-content: center; gap: 2.2cqw; padding: 0 1.5cqw;
+}
+.hero-figure .btn {
+  min-height: min(50px, 10.6cqw); padding: 0 min(26px, 4.4cqw);
+  font-size: clamp(13px, 3.6cqw, 17px); white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(20, 6, 40, .35);
+}
+.hero-figure .btn-outline-yellow { background: var(--purple); }
+.hero-figure .btn-outline-yellow:hover { background: var(--purple-dark); }
+@media (max-width: 1080px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-text { padding-bottom: 24px; }
+  .hero-figure { justify-self: center; max-width: 440px; }
+}
+@media (max-width: 600px) {
+  /* na telefonu fotka až k okrajům displeje, ať jsou tlačítka co největší */
+  .hero-figure { width: calc(100% + 32px); margin: 0 -16px; }
+}
+
+/* Zárubeň */
+.growth { padding-top: var(--gap); padding-bottom: var(--gap); display: flex; flex-direction: column; gap: 48px; }
+.intro { display: flex; flex-direction: column; gap: 14px; max-width: 720px; }
+.intro p { color: var(--purple-mid); }
+
+.frame { display: flex; }
+.ruler {
+  width: 44px; flex-shrink: 0; border-radius: 6px 6px 0 0;
+  background-color: var(--purple);
+  background-image: repeating-linear-gradient(to bottom, var(--yellow) 0, var(--yellow) 2px, transparent 2px, transparent 24px);
+  background-size: 16px 100%; background-repeat: no-repeat; background-position: right top;
+}
+.marks { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mark {
+  display: flex; flex-wrap: wrap; gap: 8px 40px; padding: 28px 0;
+  border-top: 3px dashed var(--purple);
+}
+.mark.solid { border-top-style: solid; }
+.mark:last-child { border-bottom: 3px solid var(--purple); }
+.mark-head { flex: 1 1 300px; min-width: 0; padding-left: 24px; display: flex; flex-direction: column; gap: 2px; }
+.mark-body { flex: 999 1 420px; min-width: 0; padding-left: 24px; display: flex; flex-direction: column; gap: 8px; max-width: 620px; }
+.note { font-family: var(--hand); font-weight: 700; font-size: 26px; line-height: 1; color: var(--purple-mid); }
+.mark h3 {
+  margin: 0; font-variation-settings: 'wdth' 85; font-stretch: 85%;
+  font-weight: 800; font-size: 40px; line-height: 1.05;
+}
+.mark-link { align-self: flex-start; font-weight: 700; padding: 10px 0; text-underline-offset: 4px; }
+
+/* Rodina */
+.family { padding-top: var(--gap); padding-bottom: var(--gap); display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-start; }
+/* Nadpis o kousek výš, aby horní hrana písmen seděla s horní hranou fotky. */
+.family-text h2 { margin-top: -0.14em; }
+.family-text { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px; max-width: 640px; }
+.family-photo { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 0; }
+.photo-slot {
+  aspect-ratio: 4 / 3; border-radius: 28px; border: 2px dashed var(--yellow);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 24px; font-size: 16px; color: var(--cream); overflow: hidden;
+}
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-slot:has(img) { padding: 0; border-style: solid; aspect-ratio: 3 / 2; }
+.family-photo figcaption { font-family: var(--hand); font-weight: 700; font-size: 24px; color: var(--yellow); padding-left: 12px; }
+
+/* Kontakt */
+.contact { padding-top: var(--gap); display: flex; flex-direction: column; gap: 28px; }
+
+/* Místo vpravo od formuláře je volné pro fotku. Fotka by dosedala spodní hranou na čáru patičky,
+   proto spodní odsazení sekce nese formulář, ne sekce. */
+.contact-body {
+  display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 1fr);
+  gap: 0 48px; align-items: end;
+}
+.contact-body .contact-form { padding-bottom: 104px; }
+@media (max-width: 980px) {
+  .contact-body { grid-template-columns: 1fr; }
+}
+.contact h2 { max-width: 12em; }
+.contact > p { max-width: 34em; font-size: 21px; color: var(--purple-mid); }
+
+/* Kontaktní formulář */
+.contact-form {
+  margin-top: 20px; max-width: 760px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px;
+}
+.form-note { grid-column: 1 / -1; margin: 0; font-size: 15px; color: var(--purple-mid); }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field-full { grid-column: 1 / -1; }
+.field label { font-weight: 700; font-size: 16px; }
+.field label span { color: var(--purple-mid); }
+.field input, .field textarea {
+  font: inherit; font-size: 17px; color: var(--purple);
+  background: #FFF4CC; border: 2px solid var(--purple); border-radius: 14px;
+  padding: 12px 16px; width: 100%; min-height: 52px;
+}
+.field textarea { min-height: 160px; resize: vertical; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder { color: var(--purple-mid); opacity: .55; }
+.field input:focus, .field textarea:focus { outline: 3px solid var(--purple); outline-offset: 2px; background: #FFFAE6; }
+.field [aria-invalid="true"] { border-color: #B3261E; background: #FFEDE6; }
+.field-error { min-height: 0; font-size: 14px; font-weight: 600; color: #B3261E; }
+.field-error:empty { display: none; }
+.form-actions { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.form-actions .btn { font-family: inherit; cursor: pointer; }
+.form-thanks {
+  margin: 0; font-family: var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--purple);
+}
+.form-thanks:empty { display: none; }
+/* Dokud nejsou vyplněná povinná pole, je tlačítko neaktivní a kurzor ukáže červené přeškrtnuté kolečko. */
+.form-actions .btn:disabled { opacity: .45; transform: none; background: var(--purple); cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23fff' stroke='%23D92D20' stroke-width='3'/%3E%3Cpath d='M5 5l14 14' stroke='%23D92D20' stroke-width='3'/%3E%3C/svg%3E") 12 12, not-allowed; }
+.form-actions .btn.is-sending:disabled { opacity: .6; cursor: wait; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+@media (max-width: 600px) {
+  .contact-form { grid-template-columns: 1fr; }
+}
+
+/* Footer */
+.site-footer { border-top: 3px solid var(--purple); }
+.footer-inner {
+  padding-top: 28px; padding-bottom: 28px;
+  display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center;
+  font-size: 15px; color: var(--purple-mid);
+}
+.footer-left { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.footer-left a { font-weight: 600; }
+.footer-note { font-family: var(--hand); font-weight: 700; font-size: 22px; }
+
+@media (max-width: 600px) {
+  .wrap { padding-left: 16px; padding-right: 16px; }
+  .logo img { height: 118px; }
+  .hero { padding-top: 24px; }
+  .hero-lead, .contact > p { font-size: 19px; }
+  :root { --gap: 64px; }
+  .ruler { width: 28px; background-size: 12px 100%; }
+  .mark-head, .mark-body { padding-left: 16px; }
+  .mark h3 { font-size: 32px; }
+  .note { font-size: 23px; }
+}

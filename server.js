@@ -35,7 +35,39 @@ function authorized(req) {
   return got.length === EXPECTED.length && crypto.timingSafeEqual(got, EXPECTED);
 }
 
+// ─── Bezpečnostní hlavičky ───────────────────────────────────────────────────
+// Cizí domény povolujeme jen ty, které web opravdu používá. Google Fonts zmizí,
+// až budou písma uložená přímo na webu.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self' https://hook.eu1.make.com",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join('; ');
+
+// Nouzový vypínač: CSP_JEN_HLASIT=1 v Railway přepne CSP jen na hlášení do konzole
+// prohlížeče, takže web nic neblokuje a nemusí se kvůli tomu znovu nasazovat.
+const CSP_HEADER = process.env.CSP_JEN_HLASIT === '1'
+  ? 'Content-Security-Policy-Report-Only'
+  : 'Content-Security-Policy';
+
+const SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=31536000',
+  [CSP_HEADER]: CSP,
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+};
+
 const server = http.createServer((req, res) => {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) res.setHeader(name, value);
+
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.writeHead(405, { Allow: 'GET, HEAD' });
     return res.end();
@@ -74,9 +106,8 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-Type': TYPES[ext] || 'application/octet-stream',
       'Content-Length': stat.size,
-      // HTML vždy čerstvé, obrázky můžou chvíli zůstat v cache prohlížeče.
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=86400',
-      'X-Content-Type-Options': 'nosniff',
+      // HTML, CSS a JS vždy čerstvé, obrázky můžou chvíli zůstat v cache prohlížeče.
+      'Cache-Control': ['.html', '.css', '.js'].includes(ext) ? 'no-cache' : 'public, max-age=86400',
       // Dokud je web zamčený, nechceme ho ve vyhledávačích.
       ...(EXPECTED ? { 'X-Robots-Tag': 'noindex, nofollow' } : {}),
     });
