@@ -35,6 +35,24 @@ function authorized(req) {
   return got.length === EXPECTED.length && crypto.timingSafeEqual(got, EXPECTED);
 }
 
+// ─── Jedna adresa webu ───────────────────────────────────────────────────────
+// Co nepřišlo na www (holá doména, *.railway.app), trvale přesměrujeme na stejnou
+// cestu na www, ať vyhledávače znají jen jednu adresu. Lokální vývoj necháváme být.
+const CANONICAL_HOST = 'www.karelpospisilik.cz';
+const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
+
+function canonicalRedirect(req) {
+  let host, url;
+  try {
+    host = new URL(`http://${req.headers.host}`).hostname;
+    url = new URL(req.url, 'http://localhost');
+  } catch {
+    return null;
+  }
+  if (host === CANONICAL_HOST || LOCAL_HOSTS.has(host)) return null;
+  return `https://${CANONICAL_HOST}${url.pathname}${url.search}`;
+}
+
 // ─── Bezpečnostní hlavičky ───────────────────────────────────────────────────
 // Cizí domény povolujeme jen ty, které web opravdu používá. Google Fonts zmizí,
 // až budou písma uložená přímo na webu.
@@ -67,6 +85,13 @@ const SECURITY_HEADERS = {
 
 const server = http.createServer((req, res) => {
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) res.setHeader(name, value);
+
+  // Přesměrování před zámkem, aby se heslo nezadávalo zvlášť pro každou adresu.
+  const target = canonicalRedirect(req);
+  if (target) {
+    res.writeHead(301, { Location: target });
+    return res.end();
+  }
 
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.writeHead(405, { Allow: 'GET, HEAD' });
