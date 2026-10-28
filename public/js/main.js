@@ -1,4 +1,3 @@
-// Logo: plynule nahoru bez načtení stránky a bez #top v adrese. Bez JavaScriptu odkaz prostě načte úvodní stránku.
 document.querySelector('.logo').addEventListener('click', function (e) {
   if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
   e.preventDefault();
@@ -33,7 +32,6 @@ document.querySelector('.logo').addEventListener('click', function (e) {
 
   var sending = false;
 
-  // Tlačítko Odeslat je aktivní, až když jsou vyplněná všechna povinná pole.
   function update() {
     var ok = true;
     fields.forEach(function (el) {
@@ -49,7 +47,6 @@ document.querySelector('.logo').addEventListener('click', function (e) {
       update();
     });
     el.addEventListener('change', update);
-    // Po opuštění vyplňovaného pole hned řekneme, co chybí, ať je jasné, proč tlačítko nejde.
     el.addEventListener('blur', function () { if (el.dataset.touched) check(el); });
   });
   update();
@@ -60,7 +57,6 @@ document.querySelector('.logo').addEventListener('click', function (e) {
     fields.forEach(function (el) { if (!check(el) && !firstBad) firstBad = el; });
     if (firstBad) { thanks.textContent = ''; firstBad.focus(); return; }
 
-    // Jednoduchý požadavek (form-urlencoded) – prohlížeč nemusí posílat CORS preflight.
     var data = new URLSearchParams(new FormData(form));
     sending = true;
     button.disabled = true;

@@ -9,7 +9,6 @@
 <meta property="og:description" content="Konzultace AI, tvorba webů, vlastní projekty a texty.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#55208F">
-<!-- Favicon: monogram KP z loga. favicon.ico v kořeni je pro prohlížeče, které se ptají rovnou na /favicon.ico. -->
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
@@ -46,7 +45,6 @@
 </section>
 
 <main>
-<!-- Zárubeň: výškoměr projektů -->
 <section id="zarubne" class="wrap growth">
   <div class="intro">
     <h2 class="display">Jak co roste</h2>
@@ -127,7 +125,6 @@
   </div>
 </section>
 
-<!-- Rodina i já -->
 <section id="rodina" class="dark">
   <div class="wrap family">
     <div class="family-text">
@@ -144,7 +141,6 @@
   </div>
 </section>
 
-<!-- Kontakt -->
 <section id="kontakt" class="wrap contact">
   <h2 class="display">Potřebujete pomoc? Máte nápad, který potřebuje vyrůst?</h2>
   <p>Napište mi. Rád se s&nbsp;vámi potkám.</p>
@@ -152,7 +148,6 @@
     <a href="https://cz.linkedin.com/in/karel-pospisilik" class="btn btn-outline-purple" target="_blank" rel="noopener">Propojit se na LinkedIn</a>
   </div>
 
-  <!-- Zprávy jdou na webhook v Make (účet kayapoetcompany) → Google Sheets + upozornění do Gmailu. -->
   <div class="contact-body">
   <form class="contact-form" id="contact-form" novalidate>
     <p class="form-note">* povinné</p>
@@ -176,7 +171,6 @@
       <textarea id="f-zprava" name="zprava" placeholder="Rád bych probral, jak mi AI může pomoct při mém podnikání." required aria-describedby="e-zprava"></textarea>
       <span class="field-error" id="e-zprava"></span>
     </div>
-    <!-- Past na roboty: člověk pole nevidí, robot ho vyplní a scénář v Make zprávu zahodí. -->
     <div class="hp" aria-hidden="true">
       <label for="f-web">Nevyplňujte</label>
       <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
