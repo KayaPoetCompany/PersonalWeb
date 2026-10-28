@@ -65,7 +65,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   padding-top: 28px; padding-bottom: 28px;
   display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; justify-content: space-between;
 }
-/* Logo je PNG s průhledným pozadím (img/logo-zlute.png); fialová verze je v img/logo-fialove.png. */
+/* Logo je WebP s průhledným pozadím (img/logo-zlute.webp); fialová verze je v img/logo-fialove.png. */
 .logo { display: block; flex-shrink: 0; }
 .logo img { display: block; height: 166px; width: auto; }
 .site-nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-weight: 600; font-size: 17px; }
