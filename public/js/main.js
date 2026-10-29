@@ -26,11 +26,38 @@ document.querySelector('.logo').addEventListener('click', function (e) {
     return !msg;
   }
 
-  var ENDPOINT = 'https://hook.eu1.make.com/668s2lz1t3gn6sgamw2nuja8g1qppcql';
+  var ENDPOINT = '/api/kontakt';
+  var FALLBACK = 'Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo napište na kayapoetcompany@gmail.com.';
   var button = form.querySelector('button[type="submit"]');
   var fields = form.querySelectorAll('.field input, .field textarea');
+  var siteKey = form.getAttribute('data-recaptcha');
+  var recaptcha = null;
 
   var sending = false;
+
+  function loadRecaptcha() {
+    if (!siteKey || recaptcha) return recaptcha;
+    recaptcha = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(siteKey);
+      script.async = true;
+      script.onload = function () { window.grecaptcha.ready(function () { resolve(window.grecaptcha); }); };
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    return recaptcha;
+  }
+
+  function getToken() {
+    if (!siteKey) return Promise.resolve('');
+    var token = loadRecaptcha()
+      .then(function (g) { return g.execute(siteKey, { action: 'kontakt' }); })
+      .catch(function () { return ''; });
+    var timeout = new Promise(function (resolve) { setTimeout(function () { resolve(''); }, 10000); });
+    return Promise.race([token, timeout]);
+  }
+
+  form.addEventListener('focusin', loadRecaptcha);
 
   function update() {
     var ok = true;
@@ -64,15 +91,23 @@ document.querySelector('.logo').addEventListener('click', function (e) {
     button.textContent = 'Odesílám…';
     thanks.textContent = '';
 
-    fetch(ENDPOINT, { method: 'POST', body: data })
+    getToken()
+      .then(function (token) {
+        data.set('token', token);
+        return fetch(ENDPOINT, { method: 'POST', body: data });
+      })
       .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          if (!res.ok) throw { chyba: body.chyba };
+        });
+      })
+      .then(function () {
         form.reset();
         fields.forEach(function (el) { el.removeAttribute('aria-invalid'); delete el.dataset.touched; });
         thanks.textContent = 'Díky za zprávu. Brzy se ozvu.';
       })
-      .catch(function () {
-        thanks.textContent = 'Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo napište na kayapoetcompany@gmail.com.';
+      .catch(function (err) {
+        thanks.textContent = (err && err.chyba) || FALLBACK;
       })
       .then(function () {
         sending = false;

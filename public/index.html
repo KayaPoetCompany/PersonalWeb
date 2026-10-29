@@ -178,26 +178,26 @@
   </div>
 
   <div class="contact-body">
-  <form class="contact-form" id="contact-form" novalidate>
+  <form class="contact-form" id="contact-form" data-recaptcha="" novalidate>
     <p class="form-note">* povinné</p>
     <div class="field">
       <label for="f-jmeno">Jméno <span>*</span></label>
-      <input id="f-jmeno" name="jmeno" type="text" placeholder="Tomáš" autocomplete="given-name" required aria-describedby="e-jmeno">
+      <input id="f-jmeno" name="jmeno" type="text" placeholder="Tomáš" autocomplete="given-name" maxlength="100" required aria-describedby="e-jmeno">
       <span class="field-error" id="e-jmeno"></span>
     </div>
     <div class="field">
       <label for="f-prijmeni">Příjmení <span>*</span></label>
-      <input id="f-prijmeni" name="prijmeni" type="text" placeholder="Kapřík" autocomplete="family-name" required aria-describedby="e-prijmeni">
+      <input id="f-prijmeni" name="prijmeni" type="text" placeholder="Kapřík" autocomplete="family-name" maxlength="100" required aria-describedby="e-prijmeni">
       <span class="field-error" id="e-prijmeni"></span>
     </div>
     <div class="field field-full">
       <label for="f-email">E-mail <span>*</span></label>
-      <input id="f-email" name="email" type="email" placeholder="tomas@kaprik.cz" autocomplete="email" required aria-describedby="e-email">
+      <input id="f-email" name="email" type="email" placeholder="tomas@kaprik.cz" autocomplete="email" maxlength="254" required aria-describedby="e-email">
       <span class="field-error" id="e-email"></span>
     </div>
     <div class="field field-full">
       <label for="f-zprava">Zpráva <span>*</span></label>
-      <textarea id="f-zprava" name="zprava" placeholder="Rád bych probral, jak mi AI může pomoct při mém podnikání." required aria-describedby="e-zprava"></textarea>
+      <textarea id="f-zprava" name="zprava" placeholder="Rád bych probral, jak mi AI může pomoct při mém podnikání." maxlength="5000" required aria-describedby="e-zprava"></textarea>
       <span class="field-error" id="e-zprava"></span>
     </div>
     <div class="hp" aria-hidden="true">
@@ -206,6 +206,7 @@
     </div>
     <div class="form-actions">
       <button type="submit" class="btn btn-purple" disabled>Odeslat</button>
+      <p class="form-recaptcha">Formulář chrání reCAPTCHA a&nbsp;platí <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">zásady ochrany soukromí</a> a&nbsp;<a href="https://policies.google.com/terms" target="_blank" rel="noopener">smluvní podmínky</a> Googlu.</p>
       <p class="form-thanks" id="form-thanks" role="status" aria-live="polite"></p>
     </div>
   </form>

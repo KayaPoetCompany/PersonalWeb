@@ -194,6 +194,9 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   margin: 0; font-family: var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--purple);
 }
 .form-thanks:empty { display: none; }
+.form-recaptcha { margin: 0; font-size: 14px; line-height: 1.5; color: var(--purple-mid); }
+/* Plovoucí odznak reCAPTCHA smí být skrytý, protože u formuláře je věta s odkazy na podmínky Googlu. */
+.grecaptcha-badge { visibility: hidden; }
 /* Dokud nejsou vyplněná povinná pole, je tlačítko neaktivní a kurzor ukáže červené přeškrtnuté kolečko. */
 .form-actions .btn:disabled { opacity: .45; transform: none; background: var(--purple); cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23fff' stroke='%23D92D20' stroke-width='3'/%3E%3Cpath d='M5 5l14 14' stroke='%23D92D20' stroke-width='3'/%3E%3C/svg%3E") 12 12, not-allowed; }
 .form-actions .btn.is-sending:disabled { opacity: .6; cursor: wait; }
