@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var MERICI_ID = '';
+  var MERICI_ID = 'G-VRFBYQTWHL';
   var nacteno = false;
 
   window.dataLayer = window.dataLayer || [];
