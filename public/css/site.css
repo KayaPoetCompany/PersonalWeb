@@ -219,7 +219,6 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .legal-toolbar button:hover { background: rgba(58, 18, 99, .1); }
 .legal-toolbar button:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 .acc { border-top: 3px dashed var(--purple); }
-.acc:last-of-type { border-bottom: 3px solid var(--purple); }
 .acc summary {
   display: flex; align-items: baseline; gap: 16px; padding: 22px 0;
   list-style: none; cursor: pointer;
