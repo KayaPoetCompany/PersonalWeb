@@ -210,7 +210,6 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .legal-hero h1 { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; max-width: 12em; }
 .dark .legal-date { font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1; color: var(--yellow); }
 .legal { max-width: 940px; padding-top: 64px; padding-bottom: var(--gap); }
-.legal-intro { max-width: 34em; margin-bottom: 32px; font-size: 21px; color: var(--purple-mid); }
 .legal-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
 .legal-toolbar[hidden] { display: none; }
 .legal-toolbar button {
@@ -258,7 +257,6 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   .acc-title { font-size: 22px; }
   .acc-body { padding-left: 0; }
   .legal { padding-top: 40px; }
-  .legal-intro { font-size: 19px; }
   /* Na telefonu tabulka cookies jako bloky pod sebou, popisky sloupců z data-label. */
   .cookie-table { min-width: 0; }
   .cookie-table thead { display: none; }
