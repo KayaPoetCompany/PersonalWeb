@@ -105,6 +105,7 @@ document.querySelector('.logo').addEventListener('click', function (e) {
         form.reset();
         fields.forEach(function (el) { el.removeAttribute('aria-invalid'); delete el.dataset.touched; });
         thanks.textContent = 'Díky za zprávu. Brzy se ozvu.';
+        if (window.kpUdalost) window.kpUdalost('generate_lead');
       })
       .catch(function (err) {
         thanks.textContent = (err && err.chyba) || FALLBACK;

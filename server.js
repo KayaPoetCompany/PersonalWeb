@@ -210,15 +210,16 @@ async function handleContact(req, res) {
 
 // ─── Bezpečnostní hlavičky ───────────────────────────────────────────────────
 // Cizí domény povolujeme jen ty, které web opravdu používá. reCAPTCHA potřebuje
-// skript, neviditelný rám a spojení na Google.
+// skript, neviditelný rám a spojení na Google, Google Analytics (jen po souhlasu
+// v liště) skript a odesílání měření.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/",
+  "script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://*.googletagmanager.com",
   "frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/",
   "style-src 'self' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data:",
-  "connect-src 'self' https://www.google.com/recaptcha/",
+  "img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com",
+  "connect-src 'self' https://www.google.com/recaptcha/ https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "object-src 'none'",
   "base-uri 'none'",
   "form-action 'self'",
