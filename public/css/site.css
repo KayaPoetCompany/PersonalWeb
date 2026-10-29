@@ -194,7 +194,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   margin: 0; font-family: var(--hand); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--purple);
 }
 .form-thanks:empty { display: none; }
-.form-recaptcha { margin: 0; font-size: 14px; line-height: 1.5; color: var(--purple-mid); }
+.form-legal { margin: 0; max-width: 40em; font-size: 14px; line-height: 1.5; color: var(--purple-mid); }
 /* Plovoucí odznak reCAPTCHA smí být skrytý, protože u formuláře je věta s odkazy na podmínky Googlu. */
 .grecaptcha-badge { visibility: hidden; }
 /* Dokud nejsou vyplněná povinná pole, je tlačítko neaktivní a kurzor ukáže červené přeškrtnuté kolečko. */
@@ -203,6 +203,70 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 @media (max-width: 600px) {
   .contact-form { grid-template-columns: 1fr; }
+}
+
+/* Stránka zásad: oddíly oddělené čárkovanou čarou jako značky na zárubni. */
+.legal-hero { padding-top: 24px; padding-bottom: var(--gap); display: flex; flex-direction: column; gap: 20px; }
+.legal-hero h1 { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; max-width: 12em; }
+.dark .legal-date { font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1; color: var(--yellow); }
+.legal { max-width: 940px; padding-top: 64px; padding-bottom: var(--gap); }
+.legal-intro { max-width: 34em; margin-bottom: 32px; font-size: 21px; color: var(--purple-mid); }
+.legal-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.legal-toolbar[hidden] { display: none; }
+.legal-toolbar button {
+  font: inherit; font-size: 15px; font-weight: 700; color: var(--purple); cursor: pointer;
+  background: transparent; border: 2px solid var(--purple); border-radius: 999px; padding: 6px 18px;
+}
+.legal-toolbar button:hover { background: rgba(58, 18, 99, .1); }
+.legal-toolbar button:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+.acc { border-top: 3px dashed var(--purple); }
+.acc:last-of-type { border-bottom: 3px solid var(--purple); }
+.acc summary {
+  display: flex; align-items: baseline; gap: 16px; padding: 22px 0;
+  list-style: none; cursor: pointer;
+}
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after {
+  content: '+'; flex-shrink: 0; font-weight: 800; font-size: 32px; line-height: 0.8;
+  transition: transform .2s ease;
+}
+.acc[open] summary::after { transform: rotate(45deg); }
+.acc summary:hover .acc-title { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.acc summary:focus-visible { outline: 3px solid var(--purple); outline-offset: 4px; }
+.acc-num { flex-shrink: 0; min-width: 56px; font-family: var(--hand); font-weight: 700; font-size: 28px; line-height: 1; color: var(--purple-mid); }
+.acc-title { flex: 1; font-weight: 800; font-size: 26px; line-height: 1.15; font-variation-settings: 'wdth' 85; font-stretch: 85%; }
+.acc-body { padding: 0 0 32px 72px; display: flex; flex-direction: column; gap: 14px; }
+.acc-body ul { margin: 0; padding-left: 22px; }
+.acc-body li + li { margin-top: 8px; }
+.acc-body a { font-weight: 600; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .acc summary::after { transition: none; } }
+.info-card {
+  display: flex; flex-direction: column; gap: 6px;
+  background: #FFF4CC; border: 2px solid var(--purple); border-radius: 14px; padding: 18px 22px;
+}
+.info-card-label { font-family: var(--hand); font-weight: 700; font-size: 24px; line-height: 1.1; color: var(--purple-mid); }
+.rights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.right-tile { background: #FFF4CC; border: 2px solid var(--purple); border-radius: 14px; padding: 16px 20px; font-size: 16px; line-height: 1.5; }
+.right-tile strong { display: block; margin-bottom: 4px; font-size: 18px; }
+.table-scroll { overflow-x: auto; }
+.cookie-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 16px; line-height: 1.45; }
+.cookie-table th, .cookie-table td { padding: 10px 12px 10px 0; text-align: left; vertical-align: top; border-bottom: 2px solid var(--purple); }
+.cookie-table th { font-weight: 800; }
+.cookie-table code { font-size: 15px; white-space: nowrap; }
+@media (max-width: 600px) {
+  .acc-num { min-width: 40px; font-size: 24px; }
+  .acc-title { font-size: 22px; }
+  .acc-body { padding-left: 0; }
+  .legal { padding-top: 40px; }
+  .legal-intro { font-size: 19px; }
+  /* Na telefonu tabulka cookies jako bloky pod sebou, popisky sloupců z data-label. */
+  .cookie-table { min-width: 0; }
+  .cookie-table thead { display: none; }
+  .cookie-table tr, .cookie-table td { display: block; }
+  .cookie-table tr { padding: 12px 0; border-bottom: 2px solid var(--purple); }
+  .cookie-table td { padding: 2px 0; border-bottom: 0; }
+  .cookie-table td:first-child { font-weight: 800; }
+  .cookie-table td[data-label]::before { content: attr(data-label) ': '; font-weight: 700; }
 }
 
 /* Footer */

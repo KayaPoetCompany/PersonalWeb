@@ -281,7 +281,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(400);
     return res.end();
   }
+  // Podstránky mají adresu bez přípony: /ochrana-soukromi → ochrana-soukromi.html.
   if (urlPath.endsWith('/')) urlPath += 'index.html';
+  else if (!path.extname(urlPath)) urlPath += '.html';
 
   // Nikdy nevydat nic mimo public/.
   const filePath = path.join(PUBLIC_DIR, urlPath);
