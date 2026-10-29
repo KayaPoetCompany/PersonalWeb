@@ -281,7 +281,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(400);
     return res.end();
   }
-  // Podstránky mají adresu bez přípony: /ochrana-soukromi → ochrana-soukromi.html.
+  // Podstránky mají adresu bez přípony: /gdpr → gdpr.html.
   if (urlPath.endsWith('/')) urlPath += 'index.html';
   else if (!path.extname(urlPath)) urlPath += '.html';
 
