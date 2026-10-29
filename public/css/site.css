@@ -269,6 +269,52 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   .cookie-table td[data-label]::before { content: attr(data-label) ': '; font-weight: 700; }
 }
 
+/* Lišta se souhlasem s cookies (js/souhlas.js). Přijmout i odmítnout vypadají stejně. */
+.kp-souhlas {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; padding: 20px 0;
+  background: var(--purple); color: var(--yellow); box-shadow: 0 -8px 32px rgba(20, 6, 40, .35);
+}
+.kp-souhlas-vnitrek {
+  max-width: 1240px; margin: 0 auto; padding: 0 32px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px;
+}
+.kp-souhlas p { flex: 1 1 360px; margin: 0; font-size: 16px; line-height: 1.5; color: var(--cream); }
+.kp-souhlas a { color: var(--yellow); font-weight: 600; text-underline-offset: 3px; }
+.kp-souhlas a:focus-visible { outline-color: var(--yellow); }
+.kp-souhlas-tlacitka { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.kp-souhlas button {
+  font: inherit; font-size: 16px; font-weight: 700; cursor: pointer;
+  min-height: 46px; padding: 0 22px; border-radius: 999px;
+  border: 2px solid var(--yellow); background: transparent; color: var(--yellow);
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.kp-souhlas button:hover { background: var(--purple-dark); border-color: var(--yellow-dark); color: var(--yellow-dark); }
+.kp-souhlas button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+.kp-souhlas button.kp-hlavni { background: var(--yellow); color: var(--purple); }
+.kp-souhlas button.kp-hlavni:hover { background: var(--yellow-dark); color: var(--purple-dark); }
+.kp-souhlas button.kp-odkaz { border: none; background: none; padding: 0 6px; text-decoration: underline; text-underline-offset: 4px; }
+.kp-souhlas button.kp-odkaz:hover { background: none; color: var(--yellow); }
+.kp-souhlas-detail {
+  flex: 1 1 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  border-top: 2px dashed var(--yellow); padding-top: 16px;
+}
+.kp-souhlas-radek { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.kp-souhlas-radek input { flex: none; width: 18px; height: 18px; margin-top: 4px; accent-color: var(--yellow); }
+.kp-souhlas-radek b { display: block; font-size: 16px; }
+.kp-souhlas-radek span { font-size: 14px; line-height: 1.5; color: var(--cream); }
+@media (prefers-reduced-motion: reduce) { .kp-souhlas button { transition: none; } }
+@media (max-width: 600px) {
+  .kp-souhlas-vnitrek { padding: 0 16px; }
+  .kp-souhlas-tlacitka { width: 100%; }
+  .kp-souhlas-tlacitka button { flex: 1 1 auto; }
+}
+.kp-nastaveni {
+  font: inherit; font-weight: 600; color: var(--purple); cursor: pointer;
+  background: none; border: 0; padding: 0; text-decoration: underline;
+}
+.kp-nastaveni:hover { color: var(--purple-dark); }
+.kp-nastaveni:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
+
 /* Footer */
 .site-footer { border-top: 3px solid var(--purple); }
 .footer-inner {
