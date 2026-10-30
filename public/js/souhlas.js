@@ -46,7 +46,7 @@
     var text = document.createElement('p');
     text.innerHTML = 'Rád bych měřil návštěvnost, abych věděl, co lidi na webu zajímá. '
       + 'Bez vašeho souhlasu se ale nic navíc nespustí. '
-      + 'Podrobnosti najdete v&nbsp;<a href="/gdpr#cookies">zásadách ochrany osobních údajů</a>.';
+      + 'Podrobnosti najdete v&nbsp;<a href="/gdpr">zásadách ochrany osobních údajů</a>.';
     vnitrek.appendChild(text);
 
     var tlacitka = document.createElement('div');
