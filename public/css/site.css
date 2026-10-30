@@ -294,14 +294,14 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
   border: 2px solid var(--yellow); background: transparent; color: var(--yellow);
   transition: transform .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
 }
-/* Hover jako všude na webu: ztmavení + posun nahoru. */
-.kp-souhlas button:hover { background: #12061F; border-color: var(--yellow-dark); color: var(--yellow-dark); transform: translateY(-3px); }
+/* Přijmout vše a Odmítnout vše při najetí jen ztmavnou, neposouvají se. */
+.kp-souhlas button:hover { background: #12061F; border-color: var(--yellow-dark); color: var(--yellow-dark); }
 .kp-souhlas button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 /* Uložit volbu jako tlačítko „Co všechno dělám“: fialové pozadí, žlutý text. */
 .kp-souhlas button.kp-hlavni { background: var(--purple); }
-.kp-souhlas button.kp-hlavni:hover { background: var(--purple-dark); }
+.kp-souhlas button.kp-hlavni:hover { background: var(--purple-dark); transform: translateY(-3px); }
 .kp-souhlas button.kp-odkaz { border: none; background: none; padding: 0 6px; text-decoration: underline; text-underline-offset: 4px; }
-.kp-souhlas button.kp-odkaz:hover { background: none; color: var(--yellow); transform: none; }
+.kp-souhlas button.kp-odkaz:hover { background: none; color: var(--yellow); }
 .kp-souhlas-detail {
   flex: 1 1 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
   border-top: 2px dashed var(--yellow); padding-top: 16px;
