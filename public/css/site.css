@@ -277,7 +277,8 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 /* Lišta se souhlasem s cookies (js/souhlas.js). Přijmout i odmítnout vypadají stejně. */
 .kp-souhlas {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; padding: 20px 0;
-  background: var(--purple); color: var(--yellow); box-shadow: 0 -8px 32px rgba(20, 6, 40, .35);
+  /* Tmavá lilková, aby lišta nesplývala s fialovou hero sekcí. */
+  background: #1E0B33; color: var(--yellow); box-shadow: 0 -8px 32px rgba(20, 6, 40, .35);
 }
 .kp-souhlas-vnitrek {
   max-width: 1240px; margin: 0 auto; padding: 0 32px;
