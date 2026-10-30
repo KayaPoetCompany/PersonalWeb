@@ -287,8 +287,8 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 }
 .kp-souhlas button:hover { background: var(--purple-dark); border-color: var(--yellow-dark); color: var(--yellow-dark); }
 .kp-souhlas button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
-.kp-souhlas button.kp-hlavni { background: var(--yellow); color: var(--purple); }
-.kp-souhlas button.kp-hlavni:hover { background: var(--yellow-dark); color: var(--purple-dark); }
+.kp-souhlas button.kp-hlavni { background: var(--yellow); color: var(--purple); transition: transform .15s ease, background-color .15s ease, color .15s ease; }
+.kp-souhlas button.kp-hlavni:hover { background: var(--yellow-dark); color: var(--purple-dark); transform: translateY(-3px); }
 .kp-souhlas button.kp-odkaz { border: none; background: none; padding: 0 6px; text-decoration: underline; text-underline-offset: 4px; }
 .kp-souhlas button.kp-odkaz:hover { background: none; color: var(--yellow); }
 .kp-souhlas-detail {
@@ -299,7 +299,7 @@ h2.display { font-size: clamp(44px, 6vw, 80px); line-height: 0.95; }
 .kp-souhlas-radek input { flex: none; width: 18px; height: 18px; margin-top: 4px; accent-color: var(--yellow); }
 .kp-souhlas-radek b { display: block; font-size: 16px; }
 .kp-souhlas-radek span { font-size: 14px; line-height: 1.5; color: var(--cream); }
-@media (prefers-reduced-motion: reduce) { .kp-souhlas button { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .kp-souhlas button { transition: none; } .kp-souhlas button.kp-hlavni:hover { transform: none; } }
 @media (max-width: 600px) {
   .kp-souhlas-vnitrek { padding: 0 16px; }
   .kp-souhlas-tlacitka { width: 100%; }
