@@ -241,6 +241,25 @@ const SECURITY_HEADERS = {
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
 };
 
+// ─── Stránka 404 ─────────────────────────────────────────────────────────────
+const NOT_FOUND_PAGE = path.join(PUBLIC_DIR, '404.html');
+
+function sendNotFound(req, res) {
+  fs.readFile(NOT_FOUND_PAGE, (err, html) => {
+    if (err) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end('Stránka nenalezena.');
+    }
+    res.writeHead(404, {
+      'Content-Type': TYPES['.html'],
+      'Content-Length': html.length,
+      'Cache-Control': 'no-cache',
+      'X-Robots-Tag': 'noindex, nofollow',
+    });
+    res.end(req.method === 'HEAD' ? undefined : html);
+  });
+}
+
 const server = http.createServer((req, res) => {
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) res.setHeader(name, value);
 
@@ -295,10 +314,8 @@ const server = http.createServer((req, res) => {
   }
 
   fs.stat(filePath, (err, stat) => {
-    if (err || !stat.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      return res.end('Stránka nenalezena.');
-    }
+    // I přímá adresa /404 vrací stav 404, ať stránka „nenalezeno“ nikdy není v indexu.
+    if (err || !stat.isFile() || filePath === NOT_FOUND_PAGE) return sendNotFound(req, res);
     const ext = path.extname(filePath).toLowerCase();
     res.writeHead(200, {
       'Content-Type': TYPES[ext] || 'application/octet-stream',
