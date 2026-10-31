@@ -302,9 +302,23 @@ const server = http.createServer((req, res) => {
     res.writeHead(400);
     return res.end();
   }
-  // Podstránky mají adresu bez přípony: /gdpr → gdpr.html.
+  // Úvodní stránka má jen jednu adresu: /index a /index.html → /.
+  if (urlPath === '/index' || urlPath === '/index.html') {
+    res.writeHead(301, { Location: '/' + new URL(req.url, 'http://localhost').search });
+    return res.end();
+  }
+  // Podstránky mají adresu s příponou .html (jako GoMyStory). Stará adresa bez přípony
+  // trvale přesměruje: /gdpr → /gdpr.html. Neexistující adresa zůstane, jak ji uživatel zadal, a dostane 404.
   if (urlPath.endsWith('/')) urlPath += 'index.html';
-  else if (!path.extname(urlPath)) urlPath += '.html';
+  else if (!path.extname(urlPath)) {
+    const htmlPath = path.join(PUBLIC_DIR, urlPath + '.html');
+    if (htmlPath.startsWith(PUBLIC_DIR + path.sep) && htmlPath !== NOT_FOUND_PAGE && fs.existsSync(htmlPath)) {
+      const query = new URL(req.url, 'http://localhost').search;
+      res.writeHead(301, { Location: encodeURI(urlPath + '.html') + query });
+      return res.end();
+    }
+    urlPath += '.html';
+  }
 
   // Nikdy nevydat nic mimo public/.
   const filePath = path.join(PUBLIC_DIR, urlPath);
