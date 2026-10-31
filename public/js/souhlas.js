@@ -9,7 +9,7 @@
     { klic: 'nezbytne', nazev: 'Nezbytné', vzdy: true,
       popis: 'Potřebné k&nbsp;tomu, aby web fungoval, třeba zapamatování téhle volby nebo ochrana formuláře před roboty.' },
     { klic: 'analytika', nazev: 'Analytické', vzdy: false,
-      popis: 'Statistika návštěvnosti přes Google Analytics. Pomáhá mi zjistit, co lidi na webu zajímá a&nbsp;co nefunguje.' }
+      popis: 'Anonymní statistika návštěvnosti. Pomáhá zjistit, co na webu lidem nefunguje.' }
   ];
 
   function nactiVolbu() {
